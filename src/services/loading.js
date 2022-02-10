@@ -1,8 +1,7 @@
-import {ThreeDots} from 'react-loader-spinner';
-
+import { Bars } from "react-loading-icons";
 function Loading({type, color, height, width, time, visible}){
     return(
-        <ThreeDots type={type} color={color} height={height} width={width} timeout={time} visible={visible}/>
+        <Bars type={type} color={color} height={height} width={width} timeout={time} visible={visible}/>
     )
 }
 
