@@ -14,7 +14,7 @@ height: 50%;
 border-color: #990000;
 border-style: solid;
 border-width: ${props => props.borderWidth};
-width: 95%;
+width: 100%;
 `
 
 function TitleStyle(){

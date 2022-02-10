@@ -10,8 +10,6 @@ height: fit-content;
 
 font-family: 'Dancing Script', cursive;
 
-padding-top: 60px;
-
 `
 
 export default PageTitle;

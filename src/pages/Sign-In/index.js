@@ -7,15 +7,11 @@ import Form from "../../components/Form/Form"
 import Input from "../../components/Form/Input"
 import Button from "../../components/Form/Button"
 import Loading from "../../services/loading"
-<<<<<<< HEAD
-import { useState, useEffect} from "react"
-=======
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import useAuth from "../../hooks/useAuth"
 import useSessionData from "../../hooks/useSessionData"
 import api from "../../services/api"
->>>>>>> SignInAndSignUp
 
 
 export default function SignIn(){
@@ -23,18 +19,13 @@ export default function SignIn(){
     const [isLoading, setIsLoading] = useState(false)
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-<<<<<<< HEAD
-=======
     const { auth, login } = useAuth();
     const { sessionData, updateSessionData} = useSessionData();
     const navigate = useNavigate();
->>>>>>> SignInAndSignUp
 
     const loginItems = [{placeholder: 'E-mail', type: 'email', state: setEmail}, {placeholder: 'Senha', type: 'password', state: setPassword}];
 
 
-<<<<<<< HEAD
-=======
     function RequestLogin(e){
         e.preventDefault();
         setIsLoading(true);
@@ -61,7 +52,6 @@ export default function SignIn(){
     }
 
 
->>>>>>> SignInAndSignUp
     function ButtonContent(){
         if(isLoading === true){
             return(
@@ -73,12 +63,9 @@ export default function SignIn(){
         }
     }
 
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> SignInAndSignUp
     return(
         <>
             <Container>
@@ -88,18 +75,6 @@ export default function SignIn(){
                         <TitleStyle/>
                     </PageTitle>
 
-<<<<<<< HEAD
-                    <Form>
-                        {loginItems.map((item) => 
-                            (<Input disabled={isLoading === true? true : false} placeholder={item.placeholder} type={item.type} onChange={(e) => item.state(e.target.value)}></Input>)
-                        )}
-
-                    <Button type="submit" disabled={isLoading === true? true : false}>
-                        <ButtonContent/>
-                    </Button>
-                    </Form>
-
-=======
                     <Form onSubmit={RequestLogin}>
                         {loginItems.map((item, index) => (<Input opacity={isLoading === true? 0.8 : 1} disabled={isLoading === true? true : false} placeholder={item.placeholder} type={item.type} key={index}></Input>))}
 
@@ -108,7 +83,6 @@ export default function SignIn(){
                         </Button>
                     </Form>
                     
->>>>>>> SignInAndSignUp
                </Content>
             </Container>
         </>
