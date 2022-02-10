@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5000/soundbytes';
+const BASE_URL = 'http://10.0.0.107:5000/soundbytes';
 
 async function getAllItens() {
 

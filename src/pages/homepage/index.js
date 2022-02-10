@@ -10,8 +10,6 @@ import { useState, useEffect } from "react"
 import api from "../../services/api"
 
 
-
-
 function HomePage() {
 
   const [arrayItens, setArrayItens] = useState([])
@@ -19,7 +17,7 @@ function HomePage() {
   async function getAllItens() {
     try {
       const itensList = await api.getAllItens()
-      setArrayItens(itensList.data)
+      setArrayItens(itensList.data.sort(random))
     } catch {
       alert("um erro ocorreu")
     }
@@ -29,6 +27,9 @@ function HomePage() {
     getAllItens()
   }, []);
 
+  function random() {
+    return Math.random() - 0.5;
+  }
 
 
   return (
@@ -37,7 +38,7 @@ function HomePage() {
         posterImg={"https://musiciansunion.org.uk/MusiciansUnion/media/content/hero/gig-music-instruments-wide.jpg"}
         logo={logomark}
       />
-      <Title titleAlign="center" titleText="Categoria 1" />
+      <Title titleAlign="center" titleText="Todos" />
       <ItensHomepageDisplay>
         {arrayItens.map((el) =>
           <Item
@@ -47,9 +48,9 @@ function HomePage() {
             itemPrice={el.itemPrice}
           />)}
       </ItensHomepageDisplay>
-      <Title titleAlign="center" titleText="Categoria 1" />
+      <Title titleAlign="center" titleText="Cordas" />
       <ItensHomepageDisplay>
-        {arrayItens.map((el) =>
+        {arrayItens.filter((el) => { return el.itemCategory === "Cordas" }).map((el) =>
           <Item
             size={"132px"}
             itemPhoto={el.itemThumbnail}
@@ -57,9 +58,9 @@ function HomePage() {
             itemPrice={el.itemPrice}
           />)}
       </ItensHomepageDisplay>
-      <Title titleAlign="center" titleText="Categoria 1" />
+      <Title titleAlign="center" titleText="Sopro" />
       <ItensHomepageDisplay>
-        {arrayItens.map((el) =>
+        {arrayItens.filter((el) => { return el.itemCategory === "Sopro" }).map((el) =>
           <Item
             size={"132px"}
             itemPhoto={el.itemThumbnail}
@@ -67,27 +68,6 @@ function HomePage() {
             itemPrice={el.itemPrice}
           />)}
       </ItensHomepageDisplay>
-      <Title titleAlign="center" titleText="Categoria 1" />
-      <ItensHomepageDisplay>
-        {arrayItens.map((el) =>
-          <Item
-            size={"132px"}
-            itemPhoto={el.itemThumbnail}
-            itemName={el.itemName}
-            itemPrice={el.itemPrice}
-          />)}
-      </ItensHomepageDisplay>
-      <Title titleAlign="center" titleText="Categoria 1" />
-      <ItensHomepageDisplay>
-        {arrayItens.map((el) =>
-          <Item
-            size={"132px"}
-            itemPhoto={el.itemThumbnail}
-            itemName={el.itemName}
-            itemPrice={el.itemPrice}
-          />)}
-      </ItensHomepageDisplay>
-
     </HomePageStyled>
   )
 }
