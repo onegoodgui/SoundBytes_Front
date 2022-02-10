@@ -38,7 +38,11 @@ function HomePage() {
         posterImg={"https://musiciansunion.org.uk/MusiciansUnion/media/content/hero/gig-music-instruments-wide.jpg"}
         logo={logomark}
       />
-      <Title titleAlign="center" titleText="Todos" />
+      <Title
+        navTo={"/category/Todos"}
+        titleAlign="center"
+        titleText="Todos"
+      />
       <ItensHomepageDisplay>
         {arrayItens.map((el) =>
           <Item
@@ -46,9 +50,14 @@ function HomePage() {
             itemPhoto={el.itemThumbnail}
             itemName={el.itemName}
             itemPrice={el.itemPrice}
+            navTo={`/item/${el._id}`}
           />)}
       </ItensHomepageDisplay>
-      <Title titleAlign="center" titleText="Cordas" />
+      <Title
+        navTo={"/category/Cordas"}
+        titleAlign="center"
+        titleText="Cordas"
+      />
       <ItensHomepageDisplay>
         {arrayItens.filter((el) => { return el.itemCategory === "Cordas" }).map((el) =>
           <Item
@@ -56,9 +65,14 @@ function HomePage() {
             itemPhoto={el.itemThumbnail}
             itemName={el.itemName}
             itemPrice={el.itemPrice}
+            navTo={`/item/${el._id}`}
           />)}
       </ItensHomepageDisplay>
-      <Title titleAlign="center" titleText="Sopro" />
+      <Title
+        navTo={"/category/Sopro"}
+        titleAlign="center"
+        titleText="Sopro"
+      />
       <ItensHomepageDisplay>
         {arrayItens.filter((el) => { return el.itemCategory === "Sopro" }).map((el) =>
           <Item
@@ -66,6 +80,7 @@ function HomePage() {
             itemPhoto={el.itemThumbnail}
             itemName={el.itemName}
             itemPrice={el.itemPrice}
+            navTo={`/item/${el._id}`}
           />)}
       </ItensHomepageDisplay>
     </HomePageStyled>

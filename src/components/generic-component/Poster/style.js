@@ -5,6 +5,8 @@ width: 100%;
 height: 240px;
 background-image: url(${Props => Props.posterImg});
 background-position: center;
+background-blend-mode: lighten;
+background-color: #121212;
 overflow: hidden;
 
 display: flex;

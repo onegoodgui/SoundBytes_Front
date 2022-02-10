@@ -9,9 +9,17 @@ async function getAllItens() {
   return promise;
 }
 
+async function getCategoryItens(name) {
+
+  const promise = await axios.get(`${BASE_URL}/category/${name}`);
+
+  return promise;
+}
+
 
 const api = {
   getAllItens,
+  getCategoryItens,
 
 }
 

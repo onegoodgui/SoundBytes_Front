@@ -1,9 +1,13 @@
 import { ItemStyled, PhotoThumbnail, ItemName, ItemTitleThumbnail, ItemPriceThumbnail } from "./style";
+import { useNavigate } from "react-router-dom";
+
 
 function Item(Props) {
 
+  const navigate = useNavigate();
+
   return (
-    <ItemStyled size={Props.size}>
+    <ItemStyled onClick={() => navigate(Props.navTo)} size={Props.size}>
       <ItemTitleThumbnail>
         <ItemName>{Props.itemName}</ItemName>
       </ItemTitleThumbnail>
