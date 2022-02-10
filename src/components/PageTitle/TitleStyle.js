@@ -4,6 +4,8 @@ const TitleStyleContainer = styled.div`
 display: flex;
 flex-direction: column;
 flex-grow: 1;
+width: 100%;
+align-items: end;
 `
 
 const TitleStyleComponent = styled.div`
@@ -12,7 +14,7 @@ height: 50%;
 border-color: #990000;
 border-style: solid;
 border-width: ${props => props.borderWidth};
-
+width: 95%;
 `
 
 function TitleStyle(){

@@ -3,6 +3,7 @@ import Content from "../../components/Content"
 import PageTitle from "../../components/PageTitle/PageTitle"
 import TitleText from "../../components/PageTitle/TitleText"
 import TitleStyle from "../../components/PageTitle/TitleStyle"
+import Form from "../../components/Form/Form"
 
 export default function SignIn(){
     return(
@@ -13,6 +14,8 @@ export default function SignIn(){
                         <TitleText>Entrar</TitleText>
                         <TitleStyle/>
                     </PageTitle>
+
+                    
                </Content>
             </Container>
         </>
