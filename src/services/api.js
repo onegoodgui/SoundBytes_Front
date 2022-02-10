@@ -20,7 +20,6 @@ async function getCategoryItens(name) {
 const api = {
   getAllItens,
   getCategoryItens,
-
 }
 
 export default api;
