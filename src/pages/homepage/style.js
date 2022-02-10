@@ -9,4 +9,17 @@ padding-top: 40px;
 
 `
 
-export default HomePageStyled
+const ItensHomepageDisplay = styled.div`
+display: flex;
+flex-wrap: wrap;
+height: 160px;
+flex-direction: column;
+overflow-y: scroll;
+gap: 20px;
+align-items: center;
+justify-content: flex-start;
+padding: 10px;
+
+`
+
+export { HomePageStyled, ItensHomepageDisplay }

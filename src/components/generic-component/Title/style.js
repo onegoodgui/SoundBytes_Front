@@ -21,7 +21,7 @@ const TitleTextStyled = styled.h1`
   line-height: 43px;
   color: #FFFFFF;
   display: ruby;
-  padding: 23px;
+  padding: 17px;
 
 `
 

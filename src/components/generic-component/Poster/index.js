@@ -1,0 +1,1 @@
+import { PosterStyled, PosterImg, PosterLogo } from "./style";
