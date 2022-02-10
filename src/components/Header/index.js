@@ -10,7 +10,7 @@ function Header(props) {
   return (
     <HeaderStyled>
       <div className="wrapper-menu-icons">
-        <img src={menuIcon} alt="Menu de opções do site" />
+        <img src={menuIcon} onClick={() => props.setMenu(!props.menuState)} alt="Menu de opções do site" />
         <img src={logo} alt="SoundBytes Logotipo" />
       </div>
       <div className="wrapper-menu-icons">
