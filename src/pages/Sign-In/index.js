@@ -9,16 +9,47 @@ import Button from "../../components/Form/Button"
 import Loading from "../../services/loading"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import useAuth from "../../hooks/useAuth"
+import useSessionData from "../../hooks/useSessionData"
+import api from "../../services/api"
+
 
 export default function SignIn(){
 
     const [isLoading, setIsLoading] = useState(false)
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const { auth, login } = useAuth();
+    const { sessionData, updateSessionData} = useSessionData();
     const navigate = useNavigate();
 
     const loginItems = [{placeholder: 'E-mail', type: 'email', state: setEmail}, {placeholder: 'Senha', type: 'password', state: setPassword}];
 
+
+    function RequestLogin(e){
+        e.preventDefault();
+        setIsLoading(true);
+
+        const user = {email: email, password: password};
+        
+        const promise = api.login(user);
+
+            promise.then(res => {
+                setIsLoading(false);
+                console.log(res.data);
+                login(res.data.token);
+                updateSessionData(res.data.user);
+                
+                navigate('/mainpage')}
+                );
+
+            promise.catch(() => {
+                setIsLoading(false);
+                alert('Erro!')}
+            );
+
+
+    }
 
 
     function ButtonContent(){
@@ -32,6 +63,9 @@ export default function SignIn(){
         }
     }
 
+
+
+
     return(
         <>
             <Container>
@@ -41,7 +75,7 @@ export default function SignIn(){
                         <TitleStyle/>
                     </PageTitle>
 
-                    <Form>
+                    <Form onSubmit={RequestLogin}>
                         {loginItems.map((item, index) => (<Input opacity={isLoading === true? 0.8 : 1} disabled={isLoading === true? true : false} placeholder={item.placeholder} type={item.type} key={index}></Input>))}
 
                         <Button type="submit">
