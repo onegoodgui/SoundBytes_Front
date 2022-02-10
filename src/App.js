@@ -1,24 +1,24 @@
-import styled from "styled-components";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-
-import HomePage from "./pages/homepage";
-import Header from "./components/Header";
-
-const AppStyled = styled.div`
-
-`
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
   return (
-    <AppStyled>
-      <Header user={"Alan"} shoppingCartSize={"02"} />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />}> </Route>
-        </Routes>
-      </BrowserRouter>
-    </AppStyled>
-
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
 
