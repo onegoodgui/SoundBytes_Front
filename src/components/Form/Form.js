@@ -4,8 +4,10 @@ const Form = styled.form`
 
 display: flex;
 flex-direction: column;
+align-items: center;
 
-gap: 15px;
+gap: 10px;
+padding-top: 60px;
 
 width: 100%;
 

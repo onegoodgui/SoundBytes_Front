@@ -20,6 +20,8 @@ padding: 0 15px;
         
     color: #000;
 }
+
+opacity: ${props => props.opacity}
 `
 
 export default Input;
