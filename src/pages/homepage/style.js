@@ -7,10 +7,6 @@ height: 100%;
 
 padding-top: 40px;
 
-h1{
-  font-size: 40px;
-}
-
 `
 
 export default HomePageStyled

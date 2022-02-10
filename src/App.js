@@ -5,7 +5,7 @@ import HomePage from "./pages/homepage";
 import Header from "./components/Header";
 
 const AppStyled = styled.div`
-
+background-color: #121212;
 `
 
 function App() {
