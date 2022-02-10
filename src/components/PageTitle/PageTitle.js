@@ -6,7 +6,7 @@ display: flex;
 align-self: end;
 
 width: 95%;
-height: 15vh;
+height: fit-content;
 
 font-family: 'Dancing Script', cursive;
 
