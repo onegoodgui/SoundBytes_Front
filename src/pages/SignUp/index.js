@@ -7,11 +7,16 @@ import Form from "../../components/Form/Form"
 import Input from "../../components/Form/Input"
 import Button from "../../components/Form/Button"
 import Loading from "../../services/loading"
+import PasswordReq from "../../components/PasswordRequirement/PasswordReq"
+import Req from "../../components/PasswordRequirement/Req"
+import Icon from "../../components/PasswordRequirement/Icon"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import useAuth from "../../hooks/useAuth"
 import useSessionData from "../../hooks/useSessionData"
 import api from "../../services/api"
+import { CheckmarkCircle } from 'react-ionicons'
+import { CloseCircle } from 'react-ionicons'
 
 export default function SignUp(){
     const [isLoading, setIsLoading] = useState(false)
@@ -19,6 +24,8 @@ export default function SignUp(){
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [display, setDisplay] = useState('none');
+    const [pswrdReqVisibility, setPswrdReqVisibility] = useState('hidden')
     const navigate = useNavigate();
 
 
@@ -30,7 +37,7 @@ export default function SignUp(){
 
     ];
 
-    function RequestSignUp(e){
+     async function RequestSignUp(e){
         e.preventDefault();
         setIsLoading(true);
 
@@ -40,20 +47,40 @@ export default function SignUp(){
         }
 
         const user = {name: name, email: email, password: password};
-        
-            const promise = api.signUp(user);
 
-            promise.then((res) => {
-                console.log(res.data);
-                setIsLoading(false);
-                navigate('/');
-            });
+        const promise = api.signUp(user);
 
-            promise.catch((error) => {
-                console.log(error);
-                setIsLoading(false);
-                alert('Erro!');
-            });
+        promise.then((res) => {
+            console.log(res.data);
+            setIsLoading(false);
+            navigate('/sign-in');
+        });
+
+        promise.catch((error) => {
+            console.log(error)
+            setIsLoading(false);
+            alert('Erro!');
+        });
+
+    }
+
+    function ReqStatus({status}){
+        if(status === null){
+            return(
+
+            <CloseCircle
+              color={'#be1919'} 
+              height="15px"
+              width="15px"
+            />)
+        }
+        else{
+            return(<CheckmarkCircle
+                color={'#19be42'} 
+                height="15px"
+                width="15px"
+              />)
+        }
 
     }
 
@@ -68,6 +95,23 @@ export default function SignUp(){
         }
     }
 
+    function PasswordRequirements(password){
+
+        const specialChar = password.match(/[\.\,\<\>\:\;\"\'\+\@\-\=\*\?\^\&\%\!\$\(\)\[\]\{\}\|\\]{1}/gm);
+        const numbChar = password.match(/[0-9]{1}/gm);
+        const upperCaseChar = password.match(/[A-Z]{1}/gm);
+        const stringLength = password.match(/.{8,32}/gm);
+        return(
+            <>
+                <Req content={'oi'}>Ao menos uma letra maiúscula <Icon><ReqStatus status={upperCaseChar}/></Icon></Req>
+                <Req>Ao menos um número <Icon><ReqStatus status={numbChar}/> </Icon> </Req>
+                <Req>Ao menos um caracter especial <Icon><ReqStatus status={specialChar}/> </Icon></Req>
+                <Req>Senha entre 8 e 32 dígitos <Icon><ReqStatus status={stringLength}/> </Icon></Req>
+            </>
+            
+        )
+    }
+
     return(
         <>
             <Container>
@@ -78,7 +122,23 @@ export default function SignUp(){
                     </PageTitle>
 
                     <Form onSubmit={RequestSignUp}>
-                        {loginItems.map((item, index) => (<Input opacity={isLoading === true? 0.8 : 1} disabled={isLoading === true? true : false} placeholder={item.placeholder} type={item.type} key={index}></Input>))}
+                        {loginItems.map((item, index) => {
+                            if(item.placeholder !== 'Senha'){
+                                return(<Input opacity={isLoading === true? 0.8 : 1} disabled={isLoading === true? true : false} placeholder={item.placeholder} type={item.type} key={index} onSelect={() => setDisplay('none')} onChange={(e) => {item.state(e.target.value)}}></Input>)
+                            }
+                            else{
+                                return(
+                                <>
+                                <Input opacity={isLoading === true? 0.8 : 1} disabled={isLoading === true? true : false} placeholder={item.placeholder} type={item.type} key={index} onSelect={() => setDisplay('flex')} onChange={(e) => {item.state(e.target.value)}}></Input>
+                                <PasswordReq display={display}>
+                                    {PasswordRequirements(password)}
+                                </PasswordReq>
+                                </>
+                                        
+                                )
+                            }
+                            }
+                        )}
 
                         <Button type="submit">
                             <ButtonContent/>

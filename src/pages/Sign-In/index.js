@@ -12,79 +12,84 @@ import { useNavigate } from "react-router-dom"
 import useAuth from "../../hooks/useAuth"
 import useSessionData from "../../hooks/useSessionData"
 import api from "../../services/api"
+import { CheckmarkCircle } from 'react-ionicons'
 
 
-export default function SignIn(){
 
-    const [isLoading, setIsLoading] = useState(false)
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
-    const { auth, login } = useAuth();
-    const { sessionData, updateSessionData} = useSessionData();
-    const navigate = useNavigate();
+export default function SignIn() {
 
-    const loginItems = [{placeholder: 'E-mail', type: 'email', state: setEmail}, {placeholder: 'Senha', type: 'password', state: setPassword}];
+  const [isLoading, setIsLoading] = useState(false)
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const { auth, login } = useAuth();
+  const { sessionData, updateSessionData } = useSessionData();
+  const navigate = useNavigate();
 
-
-    function RequestLogin(e){
-        e.preventDefault();
-        setIsLoading(true);
-
-        const user = {email: email, password: password};
-        
-        const promise = api.login(user);
-
-            promise.then(res => {
-                setIsLoading(false);
-                console.log(res.data);
-                login(res.data.token);
-                updateSessionData(res.data.user);
-                
-                navigate('/mainpage')}
-                );
-
-            promise.catch(() => {
-                setIsLoading(false);
-                alert('Erro!')}
-            );
+  const loginItems = [{ placeholder: 'E-mail', type: 'email', state: setEmail }, { placeholder: 'Senha', type: 'password', state: setPassword }];
 
 
+  function RequestLogin(e) {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const user = { email: email, password: password };
+
+    const promise = api.signIn(user);
+
+    promise.then(res => {
+      setIsLoading(false);
+      console.log(res.data);
+      login(res.data.token);
+      updateSessionData(res.data.user);
+
+      navigate('/')
     }
+    );
 
-
-    function ButtonContent(){
-        if(isLoading === true){
-            return(
-                <Loading color="#FFF" height={40} width={40}/> 
-            )
-        }
-        else{
-            return(<span>Entrar</span>)
-        }
+    promise.catch((error) => {
+      setIsLoading(false);
+      console.log(error);
+      alert('Erro!')
     }
+    );
+
+
+  }
+
+
+  function ButtonContent() {
+    if (isLoading === true) {
+      return (
+        <Loading color="#FFF" height={40} width={40} />
+      )
+    }
+    else {
+      return (<span>Entrar</span>)
+    }
+  }
 
 
 
 
-    return(
-        <>
-            <Container>
-               <Content>
-                    <PageTitle>
-                        <TitleText>Entrar</TitleText>
-                        <TitleStyle/>
-                    </PageTitle>
+  return (
+    <>
+      <Container>
+        <Content>
+          <PageTitle>
+            <TitleText>Entrar</TitleText>
+            <TitleStyle />
+          </PageTitle>
 
-                    <Form onSubmit={RequestLogin}>
-                        {loginItems.map((item, index) => (<Input opacity={isLoading === true? 0.8 : 1} disabled={isLoading === true? true : false} placeholder={item.placeholder} type={item.type} key={index}></Input>))}
+          <Form onSubmit={RequestLogin}>
+            {loginItems.map((item, index) => (<Input opacity={isLoading === true ? 0.8 : 1} disabled={isLoading === true ? true : false} placeholder={item.placeholder} type={item.type} key={index} onChange={(e) => { item.state(e.target.value) }}></Input>))}
 
-                        <Button type="submit">
-                            <ButtonContent/>
-                        </Button>
-                    </Form>
-                    
-               </Content>
-            </Container>
-        </>
-    )
+            <Button type="submit">
+              <ButtonContent />
+            </Button>
+          </Form>
+
+        </Content>
+      </Container>
+    </>
+  )
 }
