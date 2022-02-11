@@ -8,9 +8,12 @@ import HomePage from "./pages/homepage";
 import Category from "./pages/category";
 import Header from "./components/Header";
 import Menu from "./components/Menu";
+import ShoppingCart from "./pages/shoppingCart";
+import Footer from "./components/Footer";
 
 import { AuthProvider } from './contexts/AuthContext';
 import { SessionDataProvider } from './contexts/SessionDataContext';
+import { ShoppingCartProvider } from "./contexts/ShoppingCartContext";
 
 const AppStyled = styled.div`
 
@@ -18,34 +21,38 @@ const AppStyled = styled.div`
 
 function App() {
 
+
   const [displayMenu, setDisplayMenu] = useState(false)
+
 
   return (
 
     <>
-    <AuthProvider>
-      <SessionDataProvider>
-            <Header
-        user={"Alan"}
-        shoppingCartSize={"02"}
-        menuState={displayMenu}
-        setMenu={setDisplayMenu}
-      />
-      <Menu
-        menuState={displayMenu}
-        setMenu={setDisplayMenu}
-      />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />}> </Route>
-            <Route path='/sign-in' element={<SignIn/>}></Route>
-            <Route path='/sign-up' element={<SignUp/>}></Route>
-          <Route path="/category/:name" element={<Category />} />
-          <Route path="/item/:id" element={<HomePage />} />
-          </Routes>
-        </BrowserRouter>
-      </SessionDataProvider>
-    </AuthProvider>
+      <AuthProvider>
+        <SessionDataProvider>
+          <ShoppingCartProvider>
+            <BrowserRouter>
+              <Header
+                menuState={displayMenu}
+                setMenu={setDisplayMenu}
+              />
+              <Menu
+                menuState={displayMenu}
+                setMenu={setDisplayMenu}
+              />
+              <Routes>
+                <Route path="/" element={<HomePage />}> </Route>
+                <Route path='/sign-in' element={<SignIn />}></Route>
+                <Route path='/sign-up' element={<SignUp />}></Route>
+                <Route path="/category/:name" element={<Category />} />
+                <Route path="/item/:id" element={<HomePage />} />
+                <Route path="/shopping-cart" element={<ShoppingCart />} />
+              </Routes>
+              <Footer />
+            </BrowserRouter>
+          </ShoppingCartProvider>
+        </SessionDataProvider>
+      </AuthProvider>
 
     </>
   );
