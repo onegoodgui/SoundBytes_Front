@@ -8,7 +8,6 @@ import { CategoryStyled, ItensCategoryDisplay } from "./style"
 import { useState, useEffect } from "react"
 
 import api from "../../services/api"
-import arrayOfItens from "../../test/test"
 
 
 function Category() {
