@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom"
 import useAuth from "../../hooks/useAuth"
 import useSessionData from "../../hooks/useSessionData"
 import api from "../../services/api"
+import { CheckmarkCircle } from 'react-ionicons'
+
 
 
 export default function SignIn(){
@@ -32,7 +34,7 @@ export default function SignIn(){
 
         const user = {email: email, password: password};
         
-        const promise = api.login(user);
+        const promise = api.signIn(user);
 
             promise.then(res => {
                 setIsLoading(false);
@@ -40,11 +42,12 @@ export default function SignIn(){
                 login(res.data.token);
                 updateSessionData(res.data.user);
                 
-                navigate('/mainpage')}
+                navigate('/homepage')}
                 );
 
-            promise.catch(() => {
+            promise.catch((error) => {
                 setIsLoading(false);
+                console.log(error);
                 alert('Erro!')}
             );
 
@@ -76,7 +79,7 @@ export default function SignIn(){
                     </PageTitle>
 
                     <Form onSubmit={RequestLogin}>
-                        {loginItems.map((item, index) => (<Input opacity={isLoading === true? 0.8 : 1} disabled={isLoading === true? true : false} placeholder={item.placeholder} type={item.type} key={index}></Input>))}
+                        {loginItems.map((item, index) => (<Input opacity={isLoading === true? 0.8 : 1} disabled={isLoading === true? true : false} placeholder={item.placeholder} type={item.type} key={index} onChange={(e) => {item.state(e.target.value)}}></Input>))}
 
                         <Button type="submit">
                             <ButtonContent/>

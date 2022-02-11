@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const BASE_URL = 'https://localhost:5000';
+const BASE_URL = 'http://localhost:5000';
 
 function createConfig(token) {
   return { headers: { Authorization: `Bearer ${token}` } };
 }
 
-function login(body) {
+function signIn(body) {
   const promise = axios.post(`${BASE_URL}/auth/sign-in`, body);
 
   return promise;
@@ -21,7 +21,7 @@ function signUp(body) {
 
 const api =  {
     createConfig,
-    login,
+    signIn,
     signUp,
 }
 
