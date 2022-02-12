@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'http://10.0.0.107:5000/soundbytes';
+const BASE_URL = 'http://localhost:5000/soundbytes';
 
 async function getAllItens() {
 
@@ -31,12 +31,19 @@ async function signUp(body) {
   return promise;
 }
 
+async function getItem(params){
+  const promise = await axios.get(`${BASE_URL}/item/${params}`);
+  return promise
+}
+
 const api = {
   getAllItens,
   getCategoryItens,
+  getItem,
   createConfig,
   signIn,
   signUp,
+
 }
 
 export default api;
