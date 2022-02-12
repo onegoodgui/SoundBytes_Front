@@ -1,14 +1,11 @@
 import styled from "styled-components";
 
-const AccountStyled = styled.div`
+const PaymentAccountStyled = styled.div`
 
 width: 100%;
 height: 100%;
 
 padding-top: 40px;
-
-
-
 
 h2{
   font-family: 'Dancing Script';
@@ -24,8 +21,8 @@ h2{
 p{
   font-family: 'Roboto';
   font-style: normal;
-  font-weight: bold;
-  font-size: 20px;
+  font-weight: normal;
+  font-size: 18px;
   line-height: 21px;
 
   color: #FFFFFF;
@@ -33,12 +30,21 @@ p{
   padding: 5px 10px;
 }
 
-.p-option{
-  font-size: 16px;
+
+.payment-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+}
+
+.Payment-button{
+  margin-top: 20px;
 }
 
 `
 
 export {
-  AccountStyled,
+  PaymentAccountStyled,
 }

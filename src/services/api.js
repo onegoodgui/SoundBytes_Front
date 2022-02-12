@@ -40,6 +40,42 @@ async function getUserAccount(token) {
   return promise
 }
 
+async function getUserPayment(token, id) {
+
+  const config = createConfig(token);
+
+  const promise = axios.get(`${BASE_URL}/account/payment/${id}`, config)
+
+  return promise
+}
+
+async function setUserPayment(token, id, body) {
+
+  const config = createConfig(token);
+
+  const promise = axios.put(`${BASE_URL}/account/payment/${id}`, body, config)
+
+  return promise
+}
+
+async function getUserAddress(token, id) {
+
+  const config = createConfig(token);
+
+  const promise = axios.get(`${BASE_URL}/account/address/${id}`, config)
+
+  return promise
+}
+
+async function setUserAddress(token, id, body) {
+
+  const config = createConfig(token);
+
+  const promise = axios.put(`${BASE_URL}/account/address/${id}`, body, config)
+
+  return promise
+}
+
 const api = {
   getAllItens,
   getCategoryItens,
@@ -47,6 +83,10 @@ const api = {
   signIn,
   signUp,
   getUserAccount,
+  getUserPayment,
+  setUserPayment,
+  getUserAddress,
+  setUserAddress,
 }
 
 export default api;
