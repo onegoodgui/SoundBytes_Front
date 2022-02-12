@@ -7,11 +7,13 @@ import shoppingIcon from "../../assets/shoppingCartIcon.svg"
 import { useNavigate } from "react-router-dom";
 
 import useShoppingCart from "../../hooks/useShoppingCart";
+import useSessionData from "../../hooks/useSessionData";
 
 function Header(props) {
 
   const navigate = useNavigate()
   const { shoppingCartState } = useShoppingCart()
+  const { sessionData } = useSessionData()
 
   const shoppingCartSize = [...shoppingCartState].length
 
@@ -22,9 +24,13 @@ function Header(props) {
         <img src={logo} alt="SoundBytes Logotipo" />
       </div>
       <div className="wrapper-menu-icons">
-        <img src={peopleIcon} alt="Sua Conta" />
-        {props.user
-          ? <h1 className="welcome-user-phrase-menu">Oi, {props.user}</h1>
+        {sessionData
+          ? <img src={peopleIcon} onClick={() => { navigate("/account") }} alt="Sua Conta" />
+          : <img src={peopleIcon} onClick={() => { navigate("/sign-in") }} alt="Sua Conta" />
+        }
+
+        {sessionData
+          ? <h1 className="welcome-user-phrase-menu">Oi, {sessionData.name}</h1>
           : ""
         }
         <img src={shoppingIcon} onClick={() => { navigate("/shopping-cart") }} alt="Seu Carrinho" />

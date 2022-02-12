@@ -27,7 +27,7 @@ function Category() {
 
   useEffect(() => {
     getAllItens()
-  }, []);
+  }, [name]);
 
   function random() {
     return Math.random() - 0.5;
@@ -46,6 +46,7 @@ function Category() {
       <ItensCategoryDisplay>
         {pageState.arrayItens.map((el) =>
           <Item
+            key={el._id}
             size={"152px"}
             itemPhoto={el.itemThumbnail}
             itemName={el.itemName}

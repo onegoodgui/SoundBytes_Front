@@ -13,7 +13,7 @@ import useAuth from "../../hooks/useAuth"
 import useSessionData from "../../hooks/useSessionData"
 import api from "../../services/api"
 import { CheckmarkCircle } from 'react-ionicons'
-
+import { HeadingGeneric } from "../../components/generic-component/H1 generic"
 
 
 export default function SignIn() {
@@ -87,7 +87,9 @@ export default function SignIn() {
               <ButtonContent />
             </Button>
           </Form>
-
+          <HeadingGeneric onClick={() => { navigate("/sign-up") }}>
+            Primeira vez? Cadastre-se!
+          </HeadingGeneric>
         </Content>
       </Container>
     </>
