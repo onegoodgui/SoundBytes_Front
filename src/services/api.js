@@ -31,12 +31,22 @@ async function signUp(body) {
   return promise;
 }
 
+async function getUserAccount(token) {
+
+  const config = createConfig(token);
+
+  const promise = axios.get(`${BASE_URL}/account`, config)
+
+  return promise
+}
+
 const api = {
   getAllItens,
   getCategoryItens,
   createConfig,
   signIn,
   signUp,
+  getUserAccount,
 }
 
 export default api;
