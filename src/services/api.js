@@ -32,18 +32,21 @@ async function signUp(body) {
 }
 
 
-async function getItem(params){
+async function getItem(params) {
   const promise = await axios.get(`${BASE_URL}/item/${params}`);
   return promise
 }
 
-async function addToCart(body, config){
+async function addToCart(body, config) {
   const promise = await axios.post(`${BASE_URL}/shoppingcart/additems`, body, config);
   return promise
 }
 
-async function getCartData(config){
+async function getCartData(config) {
   const promise = await axios.get(`${BASE_URL}/shoppingcart/qty`, config);
+
+  return promise
+}
 async function getUserAccount(token) {
 
   const config = createConfig(token);
@@ -52,6 +55,7 @@ async function getUserAccount(token) {
 
   return promise
 }
+
 
 async function getUserPayment(token, id) {
 
@@ -98,7 +102,7 @@ const api = {
   signIn,
   signUp,
   addToCart,
-  getCartData
+  getCartData,
   getUserAccount,
   getUserPayment,
   setUserPayment,
