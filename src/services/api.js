@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'http://10.0.0.107:5000/soundbytes';
+const BASE_URL = 'http://localhost:5000/soundbytes';
 
 async function getAllItens() {
 
@@ -31,6 +31,19 @@ async function signUp(body) {
   return promise;
 }
 
+
+async function getItem(params){
+  const promise = await axios.get(`${BASE_URL}/item/${params}`);
+  return promise
+}
+
+async function addToCart(body, config){
+  const promise = await axios.post(`${BASE_URL}/shoppingcart/additems`, body, config);
+  return promise
+}
+
+async function getCartData(config){
+  const promise = await axios.get(`${BASE_URL}/shoppingcart/qty`, config);
 async function getUserAccount(token) {
 
   const config = createConfig(token);
@@ -73,15 +86,19 @@ async function setUserAddress(token, id, body) {
 
   const promise = axios.put(`${BASE_URL}/account/address/${id}`, body, config)
 
+
   return promise
 }
 
 const api = {
   getAllItens,
   getCategoryItens,
+  getItem,
   createConfig,
   signIn,
   signUp,
+  addToCart,
+  getCartData
   getUserAccount,
   getUserPayment,
   setUserPayment,

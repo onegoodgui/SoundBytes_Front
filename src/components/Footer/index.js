@@ -33,7 +33,7 @@ function Footer(props) {
 
   }, [shoppingCartState, pathname]);
 
-  if (pathname === "/" & shoppingCartSize === 0) {
+  if ((pathname === "/" & shoppingCartSize === 0) || pathname.includes('item/')) {
     return ("")
   }
   else {
