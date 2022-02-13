@@ -12,6 +12,10 @@ import Menu from "./components/Menu";
 import ShoppingCart from "./pages/shoppingCart";
 import Footer from "./components/Footer";
 import Order from "./pages/order";
+import Account from "./pages/account";
+import PaymentAccount from "./pages/paymentAccount";
+import AddressAccount from "./pages/addressAccount";
+
 
 import { AuthProvider } from './contexts/AuthContext';
 import { SessionDataProvider } from './contexts/SessionDataContext';
@@ -50,6 +54,9 @@ function App() {
                 <Route path="/item/:itemId" element={<ItemPage />} />
                 <Route path="/shopping-cart" element={<ShoppingCart />} />
                 <Route path="/order" element={<Order/>}></Route>
+                <Route path="/account" element={<Account />} />
+                <Route path="/account/payment/:id" element={<PaymentAccount />} />
+                <Route path="/account/address/:id" element={<AddressAccount />} />
               </Routes>
               <Footer />
             </BrowserRouter>

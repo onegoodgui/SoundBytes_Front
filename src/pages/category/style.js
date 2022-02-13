@@ -11,7 +11,7 @@ padding-top: 40px;
 
 const ItensCategoryDisplay = styled.div`
 display: flex;
-width:100;
+width:100%;
 flex-wrap: wrap;
 overflow-y: scroll;
 gap: 20px;

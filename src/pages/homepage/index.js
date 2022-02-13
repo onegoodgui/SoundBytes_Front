@@ -46,6 +46,7 @@ function HomePage() {
       <ItensHomepageDisplay>
         {arrayItens.map((el) =>
           <Item
+            key={el._id}
             size={"132px"}
             itemPhoto={el.itemThumbnail}
             itemName={el.itemName}
@@ -61,6 +62,7 @@ function HomePage() {
       <ItensHomepageDisplay>
         {arrayItens.filter((el) => { return el.itemCategory === "Cordas" }).map((el) =>
           <Item
+            key={el._id}
             size={"132px"}
             itemPhoto={el.itemThumbnail}
             itemName={el.itemName}
@@ -76,6 +78,7 @@ function HomePage() {
       <ItensHomepageDisplay>
         {arrayItens.filter((el) => { return el.itemCategory === "Sopro" }).map((el) =>
           <Item
+            key={el._id}
             size={"132px"}
             itemPhoto={el.itemThumbnail}
             itemName={el.itemName}

@@ -33,7 +33,6 @@ const ItemName = styled.h1`
 const ItemTitleThumbnail = styled.div`
 
   width:100%;
-  height: calc(${Props => Props.size} * 0.18);
   position: absolute;
   z-index: 1;
   top: 0px;
@@ -48,7 +47,6 @@ const ItemTitleThumbnail = styled.div`
 const ItemPriceThumbnail = styled.div`
 
   width: 100%;
-  height: calc(${Props => Props.size} * 0.18);
   position: absolute;
   z-index: 1;
   bottom: 0px;
