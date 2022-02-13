@@ -36,6 +36,16 @@ async function getItem(params){
   return promise
 }
 
+async function addToCart(body, config){
+  const promise = await axios.post(`${BASE_URL}/shoppingcart/additems`, body, config);
+  return promise
+}
+
+async function getCartData(config){
+  const promise = await axios.get(`${BASE_URL}/shoppingcart/qty`, config);
+  return promise
+}
+
 const api = {
   getAllItens,
   getCategoryItens,
@@ -43,6 +53,8 @@ const api = {
   createConfig,
   signIn,
   signUp,
+  addToCart,
+  getCartData
 
 }
 

@@ -5,7 +5,7 @@ const Description = styled.div`
 font-size: 24px;
 
 width: 89%;
-height:fit-content;
+height:auto;
 
 display:flex;
 flex-direction: column;
