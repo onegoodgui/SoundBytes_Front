@@ -85,7 +85,8 @@ export default function AddressAccount() {
     console.log(address)
 
     await api.setUserPayment(auth, id, { address: address })
-    navigate(-1)
+
+    navigate(`/account/payment/${id}`)
 
     try {
       setIsLoading(false);

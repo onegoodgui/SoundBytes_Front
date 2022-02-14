@@ -1,12 +1,14 @@
 import FooterStyled from "./style"
-
 import { useNavigate, useLocation } from "react-router-dom";
 import useShoppingCart from "../../hooks/useShoppingCart";
+import useAuth from '../../hooks/useAuth'
 import { useState, useEffect } from "react";
+import api from '../../services/api'
 
 function Footer(props) {
   const [textRight, setTextRight] = useState("")
   const [textLeft, setTextLeft] = useState("Voltar para Loja")
+  const {auth} = useAuth()
   const { pathname } = useLocation()
 
   const navigate = useNavigate()
@@ -33,6 +35,31 @@ function Footer(props) {
 
   }, [shoppingCartState, pathname]);
 
+
+  async function CheckoutPaths(){
+
+    try{
+      const user = await api.getUserAccount(auth);
+      const userId = user.data._id;
+      const address = await api.getUserAddress(auth, userId);
+      if(address.data === ''){
+        navigate(`/account/address/${userId}`)
+      }
+
+      const payment = await api.getUserPayment(auth, userId);
+      if(payment.data === ''){
+        navigate(`/account/payment/${userId}`)
+      }
+      else{
+        navigate('/order')
+      }
+    }
+    catch(error){
+      console.log(error)
+    }
+    
+  }
+
   if ((pathname === "/" & shoppingCartSize === 0) || pathname.includes('item/')) {
     return ("")
   }
@@ -42,7 +69,7 @@ function Footer(props) {
 
         <div>
           <h1 onClick={() => navigate("/")}>{textLeft}</h1 >
-          <h1 onClick={() => navigate("/order")} className="change-color">{textRight}</h1>
+          <h1 onClick={() => CheckoutPaths()} className="change-color">{textRight}</h1>
         </div>
 
       </FooterStyled>

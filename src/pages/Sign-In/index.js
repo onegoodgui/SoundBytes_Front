@@ -74,8 +74,8 @@ export default function SignIn() {
   return (
     <>
       <Container>
-        <Content>
-          <PageTitle>
+        <Content style={{height:'fit-content', marginTop:'40px'}}>
+          <PageTitle style={{width:'90%'}}>
             <TitleText>Entrar</TitleText>
             <TitleStyle />
           </PageTitle>

@@ -116,9 +116,9 @@ export default function SignUp() {
   return (
     <>
       <Container>
-        <Content>
-          <PageTitle>
-            <TitleText>Entrar</TitleText>
+        <Content style={{height:'fit-content', marginTop:'40px'}}>
+          <PageTitle style={{width:'90%'}}>
+            <TitleText>Cadastro</TitleText>
             <TitleStyle />
           </PageTitle>
 
