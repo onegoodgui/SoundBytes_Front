@@ -21,6 +21,7 @@ function signIn(body) {
 async function getCategoryItens(name) {
 
   const promise = await axios.get(`${BASE_URL}/category/${name}`);
+
   return promise;
 }
 
@@ -101,6 +102,34 @@ async function setUserAddress(token, id, body) {
   return promise
 }
 
+async function getShoppingCard(token) {
+
+  const config = createConfig(token);
+
+  const promise = axios.get(`${BASE_URL}/shoppingcart`, config)
+
+  return promise
+
+}
+
+
+async function setShoppingCart(token, body) {
+
+  const config = createConfig(token);
+
+  const promise = axios.put(`${BASE_URL}/shoppingcart`, body, config)
+
+  return promise
+
+}
+
+async function orderSuccess(body, token) {
+
+  const config = createConfig(token);
+  const promise = await axios.post(`${BASE_URL}/order/success`, body, config);
+  return promise
+}
+
 const api = {
   getAllItens,
   getCategoryItens,
@@ -116,6 +145,9 @@ const api = {
   setUserPayment,
   getUserAddress,
   setUserAddress,
+  getShoppingCard,
+  setShoppingCart,
+  orderSuccess
 }
 
 export default api;

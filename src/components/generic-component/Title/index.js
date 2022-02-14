@@ -9,7 +9,7 @@ function Title(Props) {
   return (
     <TitleStyled >
       {(Props.titleAlign === "center" || Props.titleAlign === "right") && <div className="line-design-title"></div>}
-      <TitleTextStyled onClick={() => { navigate(Props.navTo) }}>{Props.titleText}</TitleTextStyled>
+      <div className="title-text-wrapper"><TitleTextStyled onClick={() => { navigate(Props.navTo) }}>{Props.titleText}</TitleTextStyled></div>
       {(Props.titleAlign === "center" || Props.titleAlign === "left") && <div className="line-design-title"></div>}
     </TitleStyled>
   )

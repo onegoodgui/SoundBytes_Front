@@ -20,8 +20,9 @@ const TitleTextStyled = styled.h1`
   font-size: 36px;
   line-height: 43px;
   color: #FFFFFF;
-  display: ruby;
   padding: 17px;
+
+  width: max-content;
 
 `
 

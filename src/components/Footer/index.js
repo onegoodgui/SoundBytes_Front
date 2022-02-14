@@ -1,18 +1,22 @@
 import FooterStyled from "./style"
-
 import { useNavigate, useLocation } from "react-router-dom";
 import useShoppingCart from "../../hooks/useShoppingCart";
+import useAuth from '../../hooks/useAuth'
+import useOrder from "../../hooks/useOrder";
 import { useState, useEffect } from "react";
+import api from '../../services/api'
 
 function Footer(props) {
   const [textRight, setTextRight] = useState("")
   const [textLeft, setTextLeft] = useState("Voltar para Loja")
+  const {auth} = useAuth()
   const { pathname } = useLocation()
-
+  const {OrderState} = useOrder();
   const navigate = useNavigate()
   const { shoppingCartState } = useShoppingCart()
 
   const shoppingCartSize = [...shoppingCartState].length
+
 
 
   useEffect(() => {
@@ -33,6 +37,50 @@ function Footer(props) {
 
   }, [shoppingCartState, pathname]);
 
+
+  async function CheckoutPaths(){
+
+    try{
+      const user = await api.getUserAccount(auth);
+      const userId = user.data._id;
+      const address = await api.getUserAddress(auth, userId);
+
+      if(pathname === '/order'){
+        if (window.confirm("Finalizar compra")) {
+
+          const obj = {userId}
+
+          try{
+            console.log(OrderState)
+
+            await api.orderSuccess(OrderState, auth)
+          }
+          catch(error){
+            console.log(error)
+          }
+
+         }
+      }
+
+      if(address.data === ''){
+        navigate(`/account/address/${userId}`)
+      }
+
+      const payment = await api.getUserPayment(auth, userId);
+      if(payment.data === ''){
+        navigate(`/account/payment/${userId}`)
+      }
+      else{
+        navigate('/order')
+      }
+
+    }
+    catch(error){
+      console.log(error)
+    }
+    
+  }
+
   if ((pathname === "/" & shoppingCartSize === 0) || pathname.includes('item/')) {
     return ("")
   }
@@ -42,7 +90,7 @@ function Footer(props) {
 
         <div>
           <h1 onClick={() => navigate("/")}>{textLeft}</h1 >
-          <h1 className="change-color">{textRight}</h1>
+          <h1 onClick={() => CheckoutPaths()} className="change-color">{textRight}</h1>
         </div>
 
       </FooterStyled>
