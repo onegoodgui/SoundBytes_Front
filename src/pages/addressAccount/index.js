@@ -60,10 +60,10 @@ export default function AddressAccount() {
   }, []);
 
   const addressItems = [
+    { placeholder: 'CEP', type: 'text', state: setCep, value: cep },
     { placeholder: 'Rua', type: 'text', state: setStreet, value: street },
     { placeholder: 'Número', type: 'text', state: setNumber, value: number },
     { placeholder: 'Complemento', type: 'text', state: setMoreInfo, value: moreInfo },
-    { placeholder: 'CEP', type: 'text', state: setCep, value: cep },
     { placeholder: 'Cidade', type: 'text', state: setCity, value: city },
     { placeholder: 'Estador', type: 'text', state: setStateBr, value: stateBr },
   ];

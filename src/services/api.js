@@ -116,6 +116,15 @@ async function setShoppingCart(token, body) {
 
 }
 
+async function getCep(cep) {
+
+
+  const promise = axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+
+  return promise
+
+}
+
 const api = {
   getAllItens,
   getCategoryItens,
@@ -132,6 +141,7 @@ const api = {
   setUserAddress,
   getShoppingCard,
   setShoppingCart,
+  getCep,
 }
 
 export default api;
