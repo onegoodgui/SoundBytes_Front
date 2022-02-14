@@ -19,6 +19,7 @@ function Category() {
     try {
       const itensList = await api.getCategoryItens(name)
       const randomItensList = itensList.data.sort(random)
+      console.log(itensList)
       setPageState({ ...pageState, arrayItens: randomItensList, pagePoster: randomItensList[0].itemPoster })
     } catch {
       alert("um erro ocorreu")

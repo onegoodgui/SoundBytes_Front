@@ -42,7 +42,7 @@ function Footer(props) {
 
         <div>
           <h1 onClick={() => navigate("/")}>{textLeft}</h1 >
-          <h1 className="change-color">{textRight}</h1>
+          <h1 onClick={() => navigate("/order")} className="change-color">{textRight}</h1>
         </div>
 
       </FooterStyled>

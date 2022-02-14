@@ -5,23 +5,34 @@ import peopleIcon from "../../assets/peopleIcon.svg"
 import shoppingIcon from "../../assets/shoppingCartIcon.svg"
 
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
 import useShoppingCart from "../../hooks/useShoppingCart";
 import useSessionData from "../../hooks/useSessionData";
-
+import api from "../../services/api";
+import useAuth from "../../hooks/useAuth";
 function Header(props) {
 
   const navigate = useNavigate()
-  const { shoppingCartState } = useShoppingCart()
+  const { shoppingCartState, setShoppingCartState } = useShoppingCart()
   const { sessionData } = useSessionData()
+  const { auth } = useAuth()
 
   const shoppingCartSize = [...shoppingCartState].length
+
+  useEffect(async () => {
+    const shoppingCartData = await api.getShoppingCard(auth)
+    if (!shoppingCartData.data) {
+      return
+    }
+    setShoppingCartState(shoppingCartData.data.items)
+  }, []);
+
 
   return (
     <HeaderStyled>
       <div className="wrapper-menu-icons">
         <img src={menuIcon} onClick={() => props.setMenu(!props.menuState)} alt="Menu de opções do site" />
-        <img src={logo} alt="SoundBytes Logotipo" />
+        <img src={logo} onClick={() => navigate("/")} alt="SoundBytes Logotipo" />
       </div>
       <div className="wrapper-menu-icons">
         {sessionData
