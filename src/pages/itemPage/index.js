@@ -20,107 +20,105 @@ import { useParams, useNavigate } from "react-router-dom"
 import api from "../../services/api"
 import { Add } from "react-ionicons";
 
-export default function ItemPage(){
+export default function ItemPage() {
 
-    const [selectedItem, setSelectedItem] = useState('');
-    const [quantity, setQuantity] = useState(0);
-    const {itemId} = useParams();
-    const {auth} = useAuth();
-    const navigate = useNavigate();
-    const {shoppingCartState, setShoppingCartState} = useShoppingCart();
+  const [selectedItem, setSelectedItem] = useState('');
+  const [quantity, setQuantity] = useState(0);
+  const { itemId } = useParams();
+  const { auth } = useAuth();
+  const navigate = useNavigate();
 
-    useEffect(async() => {
+  useEffect(async () => {
 
-            try{
-                const res = await api.getItem(itemId);
-                setSelectedItem(res.data);
-                const user = api.createConfig(auth);
-                if(user){
-                    const cartData = await api.getCartData(user);
-                    const qnty = cartData.data[0].totalQnty
-                    // setShoppingCartState(qnty);
-                }
-                else{
+    try {
+      const res = await api.getItem(itemId);
+      setSelectedItem(res.data);
+      const user = api.createConfig(auth);
+      if (user) {
+        const cartData = await api.getCartData(user);
 
-                }
+      }
+      else {
 
-            }
-            catch(error){
-                console.log(error)
-            }
-        
-    },[])
+      }
 
-    async function AddItems(){
-
-        if(!auth){
-            navigate('/sign-in');
-        }
-        const user = api.createConfig(auth);
-        const obj = {qnt: quantity, itemId: itemId}
-        try{
-            await api.addToCart(obj, user);
-
-            const cartData = await api.getCartData(user);
-            const qnty = cartData.data[0].totalQnty
-            setShoppingCartState(qnty);
-        }
-        catch(error){
-            console.log(error)
-        }
+    }
+    catch (error) {
+      console.log(error)
     }
 
-    function Add(){
-        setQuantity(quantity + 1);
+  }, [])
+
+  async function AddItems() {
+
+    if (!auth) {
+      navigate('/sign-in');
     }
+    const user = api.createConfig(auth);
+    const obj = { qnt: quantity, itemId: itemId }
+    try {
+      await api.addToCart(obj, user);
 
-    function Subtract(){
-        if(quantity === 0){
-            return
-        }
-        setQuantity(quantity - 1);
+      const cartData = await api.getCartData(user);
+      const qnty = cartData.data[0].totalQnty
+      navigate('/shopping-cart')
     }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
+  function Add() {
+    setQuantity(quantity + 1);
+  }
+
+  function Subtract() {
+    if (quantity === 0) {
+      return
+    }
+    setQuantity(quantity - 1);
+  }
 
 
 
-    console.log(selectedItem);
+  console.log(selectedItem);
 
-return(
+  return (
     <Container>
-        <Content>
-            <BackgroundImage src={selectedItem.itemPoster}/>
+      <Content>
+        <BackgroundImage src={selectedItem.itemPoster} />
 
-            <InsideContainer>
-                <InsideContent>
+        <InsideContainer>
+          <InsideContent>
             <PageTitle>
-                <TitleText>{selectedItem.itemName}</TitleText>
-                <TitleStyle/>
+              <TitleText>{selectedItem.itemName}</TitleText>
+              <TitleStyle />
             </PageTitle>
 
 
-                    <Description>
-                        <h1>Descrição:</h1>
-                        <span>{selectedItem.itemDescription}</span>
-                    </Description>
+            <Description>
+              <h1>Descrição:</h1>
+              <span>{selectedItem.itemDescription}</span>
+            </Description>
 
-                    <ShoppingContainer>
+            <ShoppingContainer>
 
-                        <span> Preço: <NumberContainer>{`${selectedItem.itemPrice}`}</NumberContainer></span>
-                        <span> Quantidade: 
-                            <NumberContainer>
-                                <SquareButton backgroundColor={'#272727'} size={'24px'} buttonText={'-'} onClick={Subtract}> </SquareButton>
-                                    <Number>{quantity}</Number> 
-                                <SquareButton backgroundColor={'#990000'} size={'24px'} buttonText={'+'} onClick={Add}></SquareButton>
-                            </NumberContainer>
-                        </span>
-                        <span> <img src={shoppingCartIcon} alt="Seu Carrinho" style={{width:'50px'}}/>  <AddToCart color={quantity > 0 ? '#990000': '#636260'} disabled={quantity > 0 ? false: true} onClick={() => AddItems()}> Adicionar ao carrinho</AddToCart></span>
+              <span> Preço: <NumberContainer>{`${selectedItem.itemPrice}`}</NumberContainer></span>
+              <span> Quantidade:
+                <NumberContainer>
+                  <SquareButton backgroundColor={'#272727'} size={'24px'} buttonText={'-'} onClick={Subtract}> </SquareButton>
+                  <Number>{quantity}</Number>
+                  <SquareButton backgroundColor={'#990000'} size={'24px'} buttonText={'+'} onClick={Add}></SquareButton>
+                </NumberContainer>
+              </span>
+              <span> <img src={shoppingCartIcon} alt="Seu Carrinho" style={{ width: '50px' }} />  <AddToCart color={quantity > 0 ? '#990000' : '#636260'} disabled={quantity > 0 ? false : true} onClick={() => AddItems()}> Adicionar ao carrinho</AddToCart></span>
 
-                    </ShoppingContainer>
-                </InsideContent>
-            </InsideContainer>
+            </ShoppingContainer>
+          </InsideContent>
+        </InsideContainer>
 
-        </Content>
+      </Content>
     </Container>
-)
+  )
 
 }

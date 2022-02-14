@@ -21,7 +21,7 @@ function Header(props) {
     <HeaderStyled>
       <div className="wrapper-menu-icons">
         <img src={menuIcon} onClick={() => props.setMenu(!props.menuState)} alt="Menu de opções do site" />
-        <img src={logo} alt="SoundBytes Logotipo" />
+        <img src={logo} onClick={() => navigate("/")} alt="SoundBytes Logotipo" />
       </div>
       <div className="wrapper-menu-icons">
         {sessionData

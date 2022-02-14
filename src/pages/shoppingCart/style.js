@@ -37,6 +37,16 @@ padding-top: 40px;
     color: white;
   }
 
+  .shopping-save-button{
+    font-family: 'Dancing Script';
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #FFFFFF;
+  background-color: #990000;
+  }
+
 `
 
 export {
