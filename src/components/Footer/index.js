@@ -2,6 +2,7 @@ import FooterStyled from "./style"
 import { useNavigate, useLocation } from "react-router-dom";
 import useShoppingCart from "../../hooks/useShoppingCart";
 import useAuth from '../../hooks/useAuth'
+import useOrder from "../../hooks/useOrder";
 import { useState, useEffect } from "react";
 import api from '../../services/api'
 
@@ -10,11 +11,12 @@ function Footer(props) {
   const [textLeft, setTextLeft] = useState("Voltar para Loja")
   const {auth} = useAuth()
   const { pathname } = useLocation()
-
+  const {OrderState} = useOrder();
   const navigate = useNavigate()
   const { shoppingCartState } = useShoppingCart()
 
   const shoppingCartSize = [...shoppingCartState].length
+
 
 
   useEffect(() => {
@@ -42,6 +44,24 @@ function Footer(props) {
       const user = await api.getUserAccount(auth);
       const userId = user.data._id;
       const address = await api.getUserAddress(auth, userId);
+
+      if(pathname === '/order'){
+        if (window.confirm("Finalizar compra")) {
+
+          const obj = {userId}
+
+          try{
+            console.log(OrderState)
+
+            await api.orderSuccess(OrderState, auth)
+          }
+          catch(error){
+            console.log(error)
+          }
+
+         }
+      }
+
       if(address.data === ''){
         navigate(`/account/address/${userId}`)
       }
@@ -53,6 +73,7 @@ function Footer(props) {
       else{
         navigate('/order')
       }
+
     }
     catch(error){
       console.log(error)

@@ -13,6 +13,7 @@ import useShoppingCart from "../../hooks/useShoppingCart"
 import { MoneyStringToCentsInt, CentsIntToMoneyString } from "../../services/transformText";
 import api from "../../services/api"
 import useAuth from "../../hooks/useAuth"
+import useOrder from "../../hooks/useOrder"
 import { AppsOutline } from "react-ionicons"
 
 export default function Order(){
@@ -23,9 +24,10 @@ export default function Order(){
     const [userAddress, setUserAddress] = useState([]);
     const [userPayment, setUserPayment] = useState([]);
     const { shoppingCartState, setShoppingCartState } = useShoppingCart()
-    const [total, setTotal] = useState(1);
+    const {OrderState, setOrderState} = useOrder();
     const totalsArray = [];
-    const totalNumber = '';
+
+
 
     const displayTotalinCart = CentsIntToMoneyString(shoppingCartState.map((el) => getItemTotal(el.price, el.qnt)).reduce(getSum, 0));
 
@@ -37,7 +39,10 @@ export default function Order(){
         return total + num;
       }
 
+
+
     useEffect(async() => {
+
 
         const token = api.createConfig(auth);
 
@@ -67,6 +72,22 @@ export default function Order(){
             }
         }
     },[])
+
+    useEffect(() => {
+
+        setOrderState(
+            {
+                orderData, 
+                userData,
+                userAddress,
+                userPayment,
+                total: displayTotalinCart
+            }
+        )
+
+    },[orderData, userData, userAddress, userPayment])
+
+
 
     function formatPrice(price, qnt){
         const reg = /[^0-9]+/gm;

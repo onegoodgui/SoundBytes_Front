@@ -123,6 +123,13 @@ async function setShoppingCart(token, body) {
 
 }
 
+async function orderSuccess(body, token) {
+
+  const config = createConfig(token);
+  const promise = await axios.post(`${BASE_URL}/order/success`, body, config);
+  return promise
+}
+
 const api = {
   getAllItens,
   getCategoryItens,
@@ -140,6 +147,7 @@ const api = {
   setUserAddress,
   getShoppingCard,
   setShoppingCart,
+  orderSuccess
 }
 
 export default api;

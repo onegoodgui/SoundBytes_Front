@@ -20,6 +20,7 @@ import AddressAccount from "./pages/addressAccount";
 import { AuthProvider } from './contexts/AuthContext';
 import { SessionDataProvider } from './contexts/SessionDataContext';
 import { ShoppingCartProvider } from "./contexts/ShoppingCartContext";
+import { OrderContextProvider } from "./contexts/OrderContext";
 
 const AppStyled = styled.div`
 
@@ -37,29 +38,31 @@ function App() {
       <AuthProvider>
         <SessionDataProvider>
           <ShoppingCartProvider>
-            <BrowserRouter>
-              <Header
-                menuState={displayMenu}
-                setMenu={setDisplayMenu}
-              />
-              <Menu
-                menuState={displayMenu}
-                setMenu={setDisplayMenu}
-              />
-              <Routes>
-                <Route path="/" element={<HomePage />}> </Route>
-                <Route path='/sign-in' element={<SignIn />}></Route>
-                <Route path='/sign-up' element={<SignUp />}></Route>
-                <Route path="/category/:name" element={<Category />} />
-                <Route path="/item/:itemId" element={<ItemPage />} />
-                <Route path="/shopping-cart" element={<ShoppingCart />} />
-                <Route path="/order" element={<Order/>}></Route>
-                <Route path="/account" element={<Account />} />
-                <Route path="/account/payment/:id" element={<PaymentAccount />} />
-                <Route path="/account/address/:id" element={<AddressAccount />} />
-              </Routes>
-              <Footer />
-            </BrowserRouter>
+            <OrderContextProvider>
+              <BrowserRouter>
+                <Header
+                  menuState={displayMenu}
+                  setMenu={setDisplayMenu}
+                />
+                <Menu
+                  menuState={displayMenu}
+                  setMenu={setDisplayMenu}
+                />
+                <Routes>
+                  <Route path="/" element={<HomePage />}> </Route>
+                  <Route path='/sign-in' element={<SignIn />}></Route>
+                  <Route path='/sign-up' element={<SignUp />}></Route>
+                  <Route path="/category/:name" element={<Category />} />
+                  <Route path="/item/:itemId" element={<ItemPage />} />
+                  <Route path="/shopping-cart" element={<ShoppingCart />} />
+                  <Route path="/order" element={<Order/>}></Route>
+                  <Route path="/account" element={<Account />} />
+                  <Route path="/account/payment/:id" element={<PaymentAccount />} />
+                  <Route path="/account/address/:id" element={<AddressAccount />} />
+                </Routes>
+                <Footer />
+              </BrowserRouter>
+            </OrderContextProvider>
           </ShoppingCartProvider>
         </SessionDataProvider>
       </AuthProvider>
