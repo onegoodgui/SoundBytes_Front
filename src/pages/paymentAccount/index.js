@@ -50,7 +50,17 @@ function PaymentAccount() {
 
     try {
       await api.setUserPayment(auth, id, { "payment": selected })
-      navigate(-1)
+
+      const user = api.createConfig(auth);
+
+      const shoppingCart = await api.getCartData(user);
+      if(shoppingCart.data.length !== 0){
+        navigate('/order')
+      }
+      else{
+        navigate(-1)
+      }
+
     } catch {
       alert("ocorreu um erro")
     }
