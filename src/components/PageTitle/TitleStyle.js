@@ -4,7 +4,6 @@ const TitleStyleContainer = styled.div`
 display: flex;
 flex-direction: column;
 flex-grow: 1;
-width: 100%;
 align-items: end;
 `
 

@@ -20,34 +20,37 @@ import { useParams, useNavigate } from "react-router-dom"
 import api from "../../services/api"
 import { Add } from "react-ionicons";
 
-export default function ItemPage() {
 
-  const [selectedItem, setSelectedItem] = useState('');
-  const [quantity, setQuantity] = useState(0);
-  const { itemId } = useParams();
-  const { auth } = useAuth();
-  const navigate = useNavigate();
+export default function ItemPage(){
 
-  useEffect(async () => {
+    const [selectedItem, setSelectedItem] = useState('');
+    const [quantity, setQuantity] = useState(0);
+    const {itemId} = useParams();
+    const {auth} = useAuth();
+    const navigate = useNavigate();
+    const {shoppingCartState, setShoppingCartState} = useShoppingCart();
 
-    try {
-      const res = await api.getItem(itemId);
-      setSelectedItem(res.data);
-      const user = api.createConfig(auth);
-      if (user) {
-        const cartData = await api.getCartData(user);
+    useEffect(async() => {
 
-      }
-      else {
+            try{
+                const res = await api.getItem(itemId);
+                setSelectedItem(res.data);
+                const user = api.createConfig(auth);
+                if(user){
+                    const cartData = await api.getCartData(user);
+                    const qnty = cartData.data[0].totalQnty
+                    // setShoppingCartState(qnty);
+                }
+                else{
 
-      }
+                }
 
-    }
-    catch (error) {
-      console.log(error)
-    }
-
-  }, [])
+            }
+            catch(error){
+                console.log(error)
+            }
+        
+    },[])
 
   async function AddItems() {
 

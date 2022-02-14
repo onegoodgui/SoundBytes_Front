@@ -48,6 +48,13 @@ async function getCartData(config) {
 
   return promise
 }
+
+async function getShoppingCart(config){
+
+  const promise = await axios.get(`${BASE_URL}/shoppingcart`, config);
+
+  return promise
+}
 async function getUserAccount(token) {
 
   const config = createConfig(token);
@@ -125,6 +132,7 @@ const api = {
   signUp,
   addToCart,
   getCartData,
+  getShoppingCart,
   getUserAccount,
   getUserPayment,
   setUserPayment,
