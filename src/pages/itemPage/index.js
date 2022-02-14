@@ -59,8 +59,6 @@ export default function ItemPage() {
     try {
       await api.addToCart(obj, user);
 
-      const cartData = await api.getCartData(user);
-      const qnty = cartData.data[0].totalQnty
       navigate('/shopping-cart')
     }
     catch (error) {

@@ -5,7 +5,7 @@ const ShoppingCartStyled = styled.div`
 width: 100%;
 height: 100%;
 
-padding-top: 40px;
+padding: 40px 0px 80px 0px;
 
 
 .total-price-wrapper{
