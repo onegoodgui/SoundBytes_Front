@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'https://soundbytes-gdv-alana.herokuapp.com/soundbytes';
+const BASE_URL = 'https://soundbytes-backend.herokuapp.com/soundbytes';
 
 async function getAllItens() {
 
