@@ -59,11 +59,12 @@ export default function ItemPage(){
         const user = api.createConfig(auth);
         const obj = {qnt: quantity, itemId: itemId}
         try{
-            await api.addToCart(obj, user);
+            const res = await api.addToCart(obj, user);
+            console.log(res);
 
             const cartData = await api.getCartData(user);
-            const qnty = cartData.data[0].totalQnty
-            setShoppingCartState(qnty);
+            const qnty = cartData.data[0].totalQnty;
+            navigate('/shopping-cart')
         }
         catch(error){
             console.log(error)
