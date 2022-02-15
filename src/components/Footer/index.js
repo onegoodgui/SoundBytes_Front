@@ -54,6 +54,10 @@ function Footer(props) {
             console.log(OrderState)
 
             await api.orderSuccess(OrderState, auth)
+            navigate('/')
+            window.location.reload(true);
+            return
+
           }
           catch(error){
             console.log(error)
@@ -64,6 +68,7 @@ function Footer(props) {
 
       if(address.data === ''){
         navigate(`/account/address/${userId}`)
+        return
       }
 
       const payment = await api.getUserPayment(auth, userId);

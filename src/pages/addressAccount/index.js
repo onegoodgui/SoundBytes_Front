@@ -37,7 +37,7 @@ export default function AddressAccount() {
     try {
       const promise = await api.getUserAddress(auth, id)
       if (promise.data === "") {
-        return;
+        return
       }
 
       const address = promise.data

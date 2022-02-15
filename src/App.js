@@ -2,7 +2,7 @@ import styled from "styled-components";
 import SignIn from './pages/Sign-In';
 import SignUp from './pages/SignUp';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import HomePage from "./pages/homepage";
 import Category from "./pages/category";
@@ -15,7 +15,6 @@ import Order from "./pages/order";
 import Account from "./pages/account";
 import PaymentAccount from "./pages/paymentAccount";
 import AddressAccount from "./pages/addressAccount";
-
 
 import { AuthProvider } from './contexts/AuthContext';
 import { SessionDataProvider } from './contexts/SessionDataContext';
@@ -30,6 +29,8 @@ function App() {
 
 
   const [displayMenu, setDisplayMenu] = useState(false)
+
+
 
 
   return (
