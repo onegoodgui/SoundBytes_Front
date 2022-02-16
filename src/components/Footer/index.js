@@ -13,7 +13,7 @@ function Footer(props) {
   const { pathname } = useLocation()
   const {OrderState} = useOrder();
   const navigate = useNavigate()
-  const { shoppingCartState } = useShoppingCart()
+  const { shoppingCartState, setShoppingCartState } = useShoppingCart()
 
   const shoppingCartSize = [...shoppingCartState].length
 
@@ -53,9 +53,9 @@ function Footer(props) {
           try{
             console.log(OrderState)
 
-            await api.orderSuccess(OrderState, auth)
+            await api.orderSuccess(OrderState, auth);
+            setShoppingCartState([]);
             navigate('/')
-            window.location.reload(true);
             return
 
           }
