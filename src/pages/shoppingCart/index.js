@@ -80,7 +80,7 @@ function ShoppingCart() {
         titleAlign="left"
         titleText="Seu Carrinho"
       />
-      {onlineShoppingCart !== shoppingCartState
+      {onlineShoppingCart !== shoppingCartState && onlineShoppingCart !== ""
         ? <h1 onClick={saveChanges} className="shopping-save-button">Salvar alterações</h1>
         : ""
       }
