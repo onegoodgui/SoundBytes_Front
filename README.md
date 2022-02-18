@@ -1,8 +1,11 @@
 # SoundBytes Store
 
-An e-commerce app design for mobile use
+An e-commerce app design for mobile use. Developed by [Alan Andrade](https://github.com/Alan-A-Andrade) and me.
 
-
+<p align='center'>
+  <img src='SoundBytes.gif' style='  display:block; margin: 0 auto;'>
+</p>
+                                                                    
 Try it out now at https://sound-bytes-front-onegoodgui.vercel.app/
 
 ## About
