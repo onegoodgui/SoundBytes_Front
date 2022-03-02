@@ -7,6 +7,7 @@ import { HomePageStyled, ItensHomepageDisplay } from "./style"
 
 import { useState, useEffect } from "react"
 
+import cookieHandler from "../../services/cookies"
 import api from "../../services/api"
 
 
@@ -14,18 +15,31 @@ function HomePage() {
 
   const [arrayItens, setArrayItens] = useState([])
 
+
+
+
+
+
   async function getAllItens() {
     try {
       const itensList = await api.getAllItens()
       setArrayItens(itensList.data.sort(random))
+
+      
+
     } catch {
       alert("um erro ocorreu")
     }
   }
 
   useEffect(() => {
-    getAllItens()
+    getAllItens();
+    const cookieItems = cookieHandler.cookieParse();
+    console.log(cookieItems);
+
   }, []);
+
+  
 
   function random() {
     return Math.random() - 0.5;

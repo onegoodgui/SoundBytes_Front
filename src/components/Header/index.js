@@ -10,21 +10,30 @@ import useShoppingCart from "../../hooks/useShoppingCart";
 import useSessionData from "../../hooks/useSessionData";
 import api from "../../services/api";
 import useAuth from "../../hooks/useAuth";
+import cookieHandler from "../../services/cookies";
 function Header(props) {
 
   const navigate = useNavigate()
   const { shoppingCartState, setShoppingCartState } = useShoppingCart()
   const { sessionData } = useSessionData()
   const { auth } = useAuth()
+  let shoppingCartSize = 0;
 
-  const shoppingCartSize = [...shoppingCartState].length
+  if(shoppingCartState === 'empty'){
+    shoppingCartSize = 0;
+  }
+  else{
+
+    shoppingCartSize = [...shoppingCartState].length
+  }
 
   useEffect(async () => {
-    const shoppingCartData = await api.getShoppingCard(auth)
-    if (!shoppingCartData.data) {
+    const cookieItems = cookieHandler.cookieParse();
+
+    if (!cookieItems.items) {
       return
     }
-    setShoppingCartState(shoppingCartData.data.items)
+    setShoppingCartState(cookieItems.items)
   }, []);
 
 

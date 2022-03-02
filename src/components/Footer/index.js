@@ -5,6 +5,7 @@ import useAuth from '../../hooks/useAuth'
 import useOrder from "../../hooks/useOrder";
 import { useState, useEffect } from "react";
 import api from '../../services/api'
+import cookieHandler from "../../services/cookies";
 
 function Footer(props) {
   const [textRight, setTextRight] = useState("")
@@ -15,8 +16,17 @@ function Footer(props) {
   const navigate = useNavigate()
   const { shoppingCartState, setShoppingCartState } = useShoppingCart()
 
-  const shoppingCartSize = [...shoppingCartState].length
+  if (document.cookie.user !== undefined){
 
+    const shoppingCartSize = [...shoppingCartState].length
+  }
+
+  let shoppingCartSize = 0;
+
+  const cookieItems = cookieHandler.cookieParse();
+  if(cookieItems.items){
+    shoppingCartSize = cookieItems.items.length;
+  }
 
 
   useEffect(() => {

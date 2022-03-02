@@ -18,7 +18,7 @@ import useShoppingCart from "../../hooks/useShoppingCart";
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import api from "../../services/api"
-import { Add } from "react-ionicons";
+import cookieHandler from "../../services/cookies";
 
 
 export default function ItemPage(){
@@ -26,11 +26,15 @@ export default function ItemPage(){
     const [selectedItem, setSelectedItem] = useState('');
     const [quantity, setQuantity] = useState(0);
     const {itemId} = useParams();
-    const {auth} = useAuth();
     const navigate = useNavigate();
     const {shoppingCartState, setShoppingCartState} = useShoppingCart();
 
+    const cookieItems = cookieHandler.cookieParse();
+
+    const auth = cookieItems.token;
+
     useEffect(async() => {
+
 
             try{
                 const res = await api.getItem(itemId);
@@ -60,9 +64,13 @@ export default function ItemPage(){
     const user = api.createConfig(auth);
     const obj = { qnt: quantity, itemId: itemId }
     try {
-      await api.addToCart(obj, user);
-
-      navigate('/shopping-cart')
+      let res = await api.addToCart(obj, user);
+      console.log(res);
+      let updatedCookies = cookieHandler.cookieParse();
+      console.log(updatedCookies);
+      console.log(cookieItems);
+      await setShoppingCartState(updatedCookies.items);
+      
     }
     catch (error) {
       console.log(error)

@@ -5,29 +5,57 @@ import { useEffect, useState } from "react";
 import api from "../../services/api";
 import useAuth from "../../hooks/useAuth";
 import { MoneyStringToCentsInt, CentsIntToMoneyString } from "../../services/transformText";
-
+import cookieHandler from "../../services/cookies";
 import useShoppingCart from "../../hooks/useShoppingCart";
 
 function ShoppingCart() {
 
-  const { shoppingCartState, setShoppingCartState } = useShoppingCart()
-  const [onlineShoppingCart, setOnlineShoppingCart] = useState("")
-  const [reload, setReload] = useState(false)
-  const { auth } = useAuth()
-
-  const numItems = [...shoppingCartState].length
-
-  const displayTotalinCart = CentsIntToMoneyString(shoppingCartState.map((el) => getItemTotal(el.price, el.qnt)).reduce(getSum, 0));
+  const [shoppingCartState, setShoppingCartState] = useState([]);
+  const [onlineShoppingCart, setOnlineShoppingCart] = useState('');
+  const [reload, setReload] = useState(false);
+  const { auth } = useAuth();
+  let numItems, displayTotalinCart = '';
 
 
   useEffect(async () => {
-    const shoppingCartData = await api.getShoppingCard(auth)
-    if (!shoppingCartData.data) {
-      return
-    }
-    setShoppingCartState(shoppingCartData.data.items)
-    setOnlineShoppingCart(shoppingCartData.data.items)
+    const cookieItems = cookieHandler.cookieParse();
+    setShoppingCartState(cookieItems.items);
   }, [reload]);
+
+
+  if(shoppingCartState !== undefined && shoppingCartState !== "empty"){
+
+    let cookieItems = cookieHandler.cookieParse();
+
+    let updatedItem = shoppingCartState.filter((stateItem) => {
+      let count = 0;
+      cookieItems.items.map((cookieItem) => {
+        if(stateItem.itemId === cookieItem.itemId && stateItem.qnt !== cookieItem.qnt){
+          count ++;
+        }
+      })
+      
+      if(count === 1){
+        return true 
+      }
+      
+    })
+    if(updatedItem.length){
+      const update = async () => {
+        await api.updateCart({updatedItem: updatedItem[0]} ,cookieItems.token);
+      }
+      update() 
+    }
+
+    numItems = shoppingCartState.length;
+    displayTotalinCart = CentsIntToMoneyString(shoppingCartState.map((el) => getItemTotal(el.price, el.qnt)).reduce(getSum, 0));
+  }
+  else{
+    setShoppingCartState([]);
+    numItems = 0;
+    displayTotalinCart = 0;
+  }
+
 
   function getItemTotal(price, qty) {
     return MoneyStringToCentsInt(price) * qty
@@ -38,24 +66,24 @@ function ShoppingCart() {
   }
 
   function addButtonFunction(id) {
-    const newShoppingArray = [...shoppingCartState]
+    let newShoppingArray = [...shoppingCartState];
     let index = newShoppingArray.map((el) => el.itemId).indexOf(id)
-    newShoppingArray[index].qnt++
+    newShoppingArray[index].qnt++;
     setShoppingCartState(newShoppingArray)
   }
 
   function minusButtonFunction(id) {
-    const newShoppingArray = [...shoppingCartState]
-    let index = newShoppingArray.map((el) => el.itemId).indexOf(id)
+    let newShoppingArray = [...shoppingCartState];
+    let index = newShoppingArray.map((el) => el.itemId).indexOf(id);
     if (newShoppingArray[index].qnt === 1) {
       return
     }
-    newShoppingArray[index].qnt--
+    newShoppingArray[index].qnt--;
     setShoppingCartState(newShoppingArray)
   }
 
   function removeButtonFunction(id) {
-    const newShoppingArray = [...shoppingCartState].filter(el => el.itemId !== id)
+    let newShoppingArray = shoppingCartState.filter(el => el.itemId !== id)
     setShoppingCartState(newShoppingArray)
   }
 
@@ -63,7 +91,7 @@ function ShoppingCart() {
 
     try {
 
-      const newShoppingCart = { "items": [...shoppingCartState] }
+      const newShoppingCart = { "items": shoppingCartState }
 
       await api.setShoppingCart(auth, newShoppingCart)
 
@@ -110,3 +138,6 @@ function ShoppingCart() {
 }
 
 export default ShoppingCart;
+
+
+
